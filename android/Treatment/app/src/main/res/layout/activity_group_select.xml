@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingLeft="16dp"
+    android:paddingTop="16dp"
+    android:paddingRight="16dp"
+    android:paddingBottom="16dp"
+    tools:context=".GroupSelectActivity">
+
+    <Button
+        android:id="@+id/toFriendsSelect"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:text="我的好友"
+        />
+    <Button
+        android:id="@+id/addGroupButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/toFriendsSelect"
+        android:text="添加群聊"
+        />
+    <EditText
+        android:id="@+id/findGroup"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/addGroupButton"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_toLeftOf="@+id/findGroupButton"
+        android:layout_toStartOf="@+id/findGroupButton"
+        android:layout_marginRight="8dp"
+        android:hint="Enter text here" />
+
+    <Button
+        android:id="@+id/findGroupButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/addGroupButton"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:text="查找" />
+    <LinearLayout
+        android:layout_height="500dp"
+        android:layout_width="match_parent"
+        android:id="@+id/l1"
+        android:layout_below="@+id/findGroupButton">
+
+        <ListView
+            android:id="@+id/listView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@id/findFriend"
+            />
+
+    </LinearLayout>
+
+    <FrameLayout
+        android:id="@+id/fragment_container"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"/>
+
+</RelativeLayout>

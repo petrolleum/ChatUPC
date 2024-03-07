@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ntu.treatment.dao.UserDao">
+
+    <!-- 目的：为DAO接口方法提供sql语句配置 -->
+    <!-- 验证医生登录 -->
+    <select id="findByName" resultType="User" parameterType="String">
+        select * from users where username = #{username}
+    </select>
+
+    <insert id="register">
+        insert into users (username,password)values (#{username},#{password})
+    </insert>
+
+    <select id="getUserInfo" resultType="User" parameterType="String">
+        select * from users where username=#{username}
+    </select>
+    <update id="updateUserInfo">
+        update users
+        set birthday=#{birthday},phonenum=#{phonenum},emailAddress=#{emailAddress}
+        where username=#{username}
+    </update>
+
+    <select id="getAllGroupsId" resultType="Integer" parameterType="String">
+        select groupId from groupmembers where username=#{username}
+    </select>
+    <select id="getGroup" resultType="Group" parameterType="Integer">
+        select * from `groups` where id=#{groupId}
+    </select>
+
+    <insert id="createGroup">
+        insert into `groups` (groupName,owner,createTime) values (#{groupName},#{owner},#{createTime})
+    </insert>
+    <insert id="addGroupMember">
+        insert into groupmembers (groupid,username) values (#{currentGroupId},#{username})
+    </insert>
+    <select id="getGroupId" resultType="Integer">
+        select id from `groups` where groupName=#{groupName} and owner=#{owner}
+    </select>
+    <select id="getUserNameFromGroup" resultType="String" parameterType="Integer">
+        select username from groupmembers where groupid=#{groupId}
+    </select>
+    <select id="getHistoryGroup" resultType="HistoryGroup" parameterType="Integer">
+        select * from historygroup where groupid=#{groupId}
+    </select>
+    <insert id="addHistoryGroup">
+        insert into historygroup (groupid,fromusername,content,sendtime) values (#{groupId},#{fromUserName},#{content},#{sendTime})
+    </insert>
+
+
+
+
+
+    <select id="getAllFriendsFrom1" resultType="String" parameterType="String">
+        select username1 from friends where username2=#{username}
+    </select>
+    <select id="getAllFriendsFrom2" resultType="String" parameterType="String">
+        select username2 from friends where username1=#{username}
+    </select>
+    <select id="findImageByUserName" resultType="String" parameterType="String">
+        select image from users where username=#{username}
+    </select>
+    <select id="getHistorySingle" resultType="HistorySingle" parameterType="String">
+        SELECT * FROM historySingle
+        WHERE (fromUserName = #{userNameNow} AND toUserName = #{userNameToShow})
+        OR (fromUserName = #{userNameToShow} AND toUserName = #{userNameNow})
+    </select>
+    <insert id="addHistorySingle" >
+        insert into historysingle (fromUserName,toUserName,content,sendTime) values (#{fromUserName},#{toUserName},#{content},#{sendTime})
+    </insert>
+    <insert id="addFriend">
+        insert into friends(username1,username2) values(#{userNameNow},#{userNameToAdd})
+    </insert>
+    <insert id="addFriendInvitation">
+        insert into friendinvitation(fromUserName,toUserName,isReceived) values (#{fromUserName},#{toUserName},#{isReceived})
+    </insert>
+    <update id="changeFriendInvitationStatus" parameterType="String">
+        update friendinvitation
+        set isReceived=1 where
+        fromUserName=#{fromUserName} and toUserName=#{toUserName}
+    </update>
+    <select id="getAllFriendInvitation" resultType="FriendInvitation" parameterType="String">
+        select * from friendinvitation where toUserName=#{userName}
+    </select>
+</mapper>
